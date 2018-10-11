@@ -1,5 +1,7 @@
 package ye.guo.huang;
 
+import java.util.Date;
+
 /**
  * new 出某个接口
  */
@@ -15,6 +17,9 @@ public class Test02 {
     }
     interface MathOperation3{
         void operation(int a);
+    }
+    interface GreetingService {
+        void sayMessage(String message);
     }
 
     public static void main(String[] args) {
@@ -33,9 +38,18 @@ public class Test02 {
 
         MathOperation3 mathOperation31 = a -> System.out.println(a);
 
-        System.out.println("---------------");
+        System.out.println("---------------1");
         mathOperation31.operation(100);
 
-
+        /**
+         * 不能在 lambda 内部修改定义在域外的局部变量，否则会编译错误
+         */
+        final  String value = "我是value";
+        GreetingService greetingService = msg -> {
+//            value = "我是value2";
+            System.err.println(msg + value + "==" + new Date());
+        };
+        System.out.println("---------------2");
+        greetingService.sayMessage("我是msg");
     }
 }
